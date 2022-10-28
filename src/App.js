@@ -30,7 +30,7 @@ const App = () => {
         <Home />
         </Route>
         <Route path="/Post">
-            <Post post={post}/>
+            <Post posts={post}/>
         </Route>
         </Switch>
         </div>
