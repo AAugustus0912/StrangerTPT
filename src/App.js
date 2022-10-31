@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
-import {Home, Post, AccountForm} from "./components";
+import {Home, Post, AccountForm, PostCreateForm} from "./components";
 import {Route, Switch, Link, useHistory} from "react-router-dom";
-import { fetchPosts, fetchUser, fetchUsername } from "./api/api";
+import { fetchPosts, fetchUsername } from "./api/api";
+
 
 const App = () => {
     const [post, setPost] = useState([]);
@@ -68,6 +69,9 @@ const App = () => {
         </Route>
         <Route path="/Post">
             <Post posts={post}/>
+        </Route>
+        <Route path="/post/create">
+            <PostCreateForm token={token} setPost={setPost} />
         </Route>
         <Route path="/Account/:action">
             <AccountForm setToken={setToken}/>

@@ -71,7 +71,7 @@ export const createPost = async (token, title, description, price, willDeliver) 
               }
             })
           });
-          console.log("create post reponse body", response);
+          console.log("create post response body", response);
             const { data } = await response.json();
             console.log("create post data", data)
             return data;
