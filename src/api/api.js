@@ -1,6 +1,7 @@
  const BASEURL = "https://strangers-things.herokuapp.com/api/2207-FT-ET-WEB-PT/"
 
-export const fetchPosts = async () => {
+
+ export const fetchPosts = async () => {
     try {
     const response = await fetch(`${BASEURL}/posts`);
     console.log("the response", response);
@@ -13,9 +14,9 @@ export const fetchPosts = async () => {
     }
 }
 
-export const registerUser = async(username, password) => {
+export const registerUser = async (username, password) => {
     try {
-    const response = await fetch(`${BASEURL}/users/register`,{
+        const response = await fetch (`${BASEURL}/users/register`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -26,12 +27,55 @@ export const registerUser = async(username, password) => {
             password
           }
         })
-    })
-    console.log("Response", response)
-    const data = await response.json();
-    console.log("data", data);
-    return data;
-} catch(error) {
-    console.error("There was an error registering the user", error)
+      });
+      console.log("reponse for registering user", response);
+      const data = await response.json();
+      console.log("data", data)
+      return data;
+    } catch (error) {
+        console.error("error registering user", error)
+    }
 }
-}
+
+export const fetchUsername = async (token) => {
+    try {
+        const response = await fetch(`${BASEURL}/users/me`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              }
+            });
+            console.log("user reponse body", response);
+            const { data } = await response.json();
+            console.log("user data", data)
+            return data;
+        } catch(error) {
+            console.log("error fetching username",error)
+        }
+    }
+
+export const createPost = async (token, title, description, price, willDeliver) => {
+    try {
+        const response = await fetch(`${BASEURL}/posts`, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              post: {
+                title,
+                description,
+                price,
+                willDeliver
+              }
+            })
+          });
+          console.log("create post reponse body", response);
+            const { data } = await response.json();
+            console.log("create post data", data)
+            return data;
+        } catch(error) {
+            console.log("error fetching create post",error)
+        }
+    }

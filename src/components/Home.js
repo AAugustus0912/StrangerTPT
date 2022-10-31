@@ -1,10 +1,13 @@
 import React from "react";
 
-const Home = () => {
+const Home = ({ user }) => {
     return (
+        <>
         <h1>
-            Stranger Things
+            Stranger's Things
         </h1>
+        {user && <h3>You're Logged In as:{user}</h3>}
+        </>
     )
 }
 
