@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Home, Post, AccountForm, PostCreateForm} from "./components";
+import {Home, Post, PostDetails, AccountForm, PostCreateForm} from "./components";
 import {Route, Switch, Link, useHistory} from "react-router-dom";
 import { fetchPosts, fetchUsername } from "./api/api";
 
@@ -76,8 +76,13 @@ const App = () => {
         <Route path="/post/create">
             <PostCreateForm token={token} setPost={setPost} />
         </Route>
+        <Route path="/post/:postId">
+            <PostDetails/>
+        </Route>
         <Route path="/post">
-            <Post posts={post} token={token} setPost={setPost}/>
+            <Post posts={post} 
+            token={token} 
+            setPost={setPost}/>
         </Route>
         <Route path="/account/:action">
             <AccountForm setToken={setToken}/>
