@@ -10,9 +10,9 @@ const Post = ({ posts }) => {
     
     <Link to="/post/create" className="ui button">Create Post</Link>
         <div className="posts-container">
-            {posts.map((item) => {
-                return <PostItem key={item._id} item={item} />
-            })}
+            {  posts.map((item) => {
+                return <PostItem key={item._id} item={item} /> 
+            }) } 
             </div>
             </>
     )

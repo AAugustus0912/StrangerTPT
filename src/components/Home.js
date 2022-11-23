@@ -6,7 +6,7 @@ const Home = ({ user }) => {
         <h1>
             Stranger's Things
         </h1>
-        {user && <h3>You're Logged In as:{user}</h3>}
+        {user && <h3>You're Logged In as: {user}</h3>}
         </>
     )
 }

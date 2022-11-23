@@ -6,22 +6,25 @@ import { fetchPosts, fetchUsername } from "./api/api";
 
 const App = () => {
     const [post, setPost] = useState([]);
-    const [token, setToken] = useState(window.localStorage.getItem("token")||"");
+    const [token, setToken] = useState(
+        window.localStorage.getItem("token") || null 
+        );
     const [username, setUsername] = useState(null);
-    const history = useHistory();
 
+    const history = useHistory();
+        console.log("posts", post)
     //the useEffect dependency makes sure the data is fetched the first time vs everytime
     useEffect(() => {
-        const getPosts = async() => {
-        try {
-            const result = await fetchPosts()
-            setPost(result)
-        } catch(error){
-            console.error(error);
-        }
+        const getPosts = async () => {
+           try {
+               const result = await fetchPosts(token)
+              setPost(result)
+           } catch(error){
+               console.error(error);
+          }
     };
     getPosts();
-    }, []);
+    }, [token]);
 
 
     useEffect(() => {
@@ -29,19 +32,22 @@ const App = () => {
             const getUsername = async () => {
                 const { username } = await fetchUsername(token);
                 console.log("username", username)
-                setUsername(username)
+                setUsername(username);
             }
             getUsername();
         }
-    }, [token])
-
+    }, [token]);
 
     useEffect(() => {
-        window.localStorage.setItem("token", token)
+        if (token) {
+        window.localStorage.setItem("token", token);
+    } else {
+        window.localStorage.removeItem("token")
+        } 
     }, [token]);
 
     const logOut = () => {
-        setToken("")
+        setToken(null)
         setUsername(null)
         history.push("/")
     }
@@ -67,13 +73,13 @@ const App = () => {
         <Route exact path="/">
         <Home  user={username}/>
         </Route>
-        <Route path="/Post">
-            <Post posts={post}/>
-        </Route>
         <Route path="/post/create">
             <PostCreateForm token={token} setPost={setPost} />
         </Route>
-        <Route path="/Account/:action">
+        <Route path="/post">
+            <Post posts={post}/>
+        </Route>
+        <Route path="/account/:action">
             <AccountForm setToken={setToken}/>
         </Route>
         </Switch>

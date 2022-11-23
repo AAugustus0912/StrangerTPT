@@ -1,17 +1,21 @@
  const BASEURL = "https://strangers-things.herokuapp.com/api/2207-FT-ET-WEB-PT/"
 
 
- export const fetchPosts = async () => {
-    try {
-    const response = await fetch(`${BASEURL}/posts`);
-    console.log("the response", response);
-    const {data} = await response.json();
-    console.log("This is data", data.posts);
-    return data.posts;
-} catch(error) {
-    console.error("There's an error fetching posts")
+ export const fetchPosts = async (token) => {
+     try {
+     const response = await fetch(`${BASEURL}/posts`, {
+     headers: {
+      Authorization: `Bearer ${token}`,
+     }
+    });
+     console.log("the response", response);
+     const {data} = await response.json();
+     console.log("This is data", data.posts);
+     return data.posts;
+ } catch(error) {
+     console.error("There's an error fetching posts")
+     }
 
-    }
 }
 
 export const registerUser = async (username, password) => {
@@ -28,7 +32,7 @@ export const registerUser = async (username, password) => {
           }
         })
       });
-      console.log("reponse for registering user", response);
+      console.log("response for registering user", response);
       const data = await response.json();
       console.log("data", data)
       return data;
@@ -45,7 +49,7 @@ export const fetchUsername = async (token) => {
                 Authorization: `Bearer ${token}`,
               }
             });
-            console.log("user reponse body", response);
+            console.log("user response body", response);
             const { data } = await response.json();
             console.log("user data", data)
             return data;
@@ -54,7 +58,8 @@ export const fetchUsername = async (token) => {
         }
     }
 
-export const createPost = async (token, title, description, price, willDeliver) => {
+export const createPost = async (token, title, description, price) => {
+  
     try {
         const response = await fetch(`${BASEURL}/posts`, {
             method: "POST",
@@ -67,15 +72,18 @@ export const createPost = async (token, title, description, price, willDeliver) 
                 title,
                 description,
                 price,
-                willDeliver
+                //willDeliver
               }
             })
           });
           console.log("create post response body", response);
-            const { data } = await response.json();
-            console.log("create post data", data)
-            return data;
+             const { data } = await response.json();
+             console.log("create post data", data)
+             return data;
+            
         } catch(error) {
-            console.log("error fetching create post",error)
+            console.log("error fetching create post", error)
         }
     }
+
+  
