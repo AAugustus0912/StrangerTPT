@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 
 
 const PostDetails = (props) => {
+    const { postId } = useParams();
     return (
-        "Post Details"
+        `Post Details for id=${postId}`
     )
 };
 

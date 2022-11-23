@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PostItem from "./PostItems";
 import { Link } from "react-router-dom";
 import { deletePost } from "../api/api";
@@ -6,7 +6,9 @@ import { deletePost } from "../api/api";
 import './Posts.css';
 
 const Post = ({ posts, setPost, token }) => {
+    
     console.log("post", posts);
+
 
     const handleDeleteClick = async (postId) => {
         await deletePost(token, postId);

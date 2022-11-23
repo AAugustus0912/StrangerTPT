@@ -25,29 +25,22 @@ const PostItem = ({ item, headerElement, children }) => {
             <p>{item.description}</p>
             <div className="extra content">
                 <div className="centered aligned header">
-                    <Link to="">View Price</Link>
+                    <Link to={`/post/${item._id}`}>View Price</Link>
                 </div>
             </div>
         </div>
+        {children}
         <div role="list"
         className="ui divided relaxed list"
-        style={{ color: "#444" }}
+        style={{ color: "#444", clear:'both' }}
         >
-            {children}
-            {/* {item.isAuthor && token ? (
-                <button
-                onClick={() => handleDeleteClick(item.id)}
-                className="negative ui button left floated"
-                >
-                Delete
-                </button>
-            ) : null} */}
           { item.messages.map((message) => {
             console.log('message', message)
             return (<div role="listitem" className="item">
               <b>{message.fromUser.username}</b>
               <p className="content">{message.content}</p>
-            </div>); 
+            </div>
+            ); 
           })}  
         </div>
         </div>
