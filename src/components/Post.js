@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 import './Posts.css';
 
-const Post = ({ posts }) => {
+const Post = ({ posts, setPost, token }) => {
     console.log("post", posts);
     return ( <>
     
     <Link to="/post/create" className="ui button">Create Post</Link>
         <div className="posts-container">
             {  posts.map((item) => {
-                return <PostItem key={item._id} item={item} /> 
+                return <PostItem key={item._id} item={item} setPost={setPost} token={token}/> 
             }) } 
             </div>
             </>

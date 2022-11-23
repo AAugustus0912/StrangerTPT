@@ -86,4 +86,18 @@ export const createPost = async (token, title, description, price) => {
         }
     }
 
-  
+    export const deletePost = async (token, postId) => {
+      try {
+        await fetch(`${BASEURL}/Post/${postId}`, {
+          method: "DELETE",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+  },
+
+});
+      } catch(error) {
+      console.error("DELETE /Post/postId failed:", error);
+        }
+      };
+    
