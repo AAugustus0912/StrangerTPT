@@ -13,7 +13,7 @@ const Post = ({ posts, setPost, token }) => {
     const handleDeleteClick = async (postId) => {
         await deletePost(token, postId);
         setPost((prevPosts) =>
-        prevPosts.filter((item) => item.id !== postId)
+        prevPosts.filter((item) => item._id !== postId)
         );
     };
 
@@ -33,7 +33,7 @@ const Post = ({ posts, setPost, token }) => {
         }>
             {item.isAuthor ? (
                 <button
-                onClick={() => handleDeleteClick(item.id)}
+                onClick={() => handleDeleteClick(item._id)}
                 className="negative ui button left floated"
                 >
                 Delete

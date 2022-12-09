@@ -6,13 +6,6 @@ import Post from "./Post";
 const PostItem = ({ item, headerElement, children }) => {
     console.log(item, "im in items");
 
-    // const handleDeleteClick = async (postId) => {
-    //     await deletePost(token, postId);
-    //     setPost((prevPosts) =>
-    //     prevPosts.filter((item) => item.id !== postId)
-    //     );
-    //};
-
     return (
     <div className = "ui card">
         <div className="content">

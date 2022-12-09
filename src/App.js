@@ -77,7 +77,7 @@ const App = () => {
             <PostCreateForm token={token} setPost={setPost} />
         </Route>
         <Route path="/post/:postId">
-            <PostDetails/>
+            <PostDetails post={post}/>
         </Route>
         <Route path="/post">
             <Post posts={post} 

@@ -1,5 +1,16 @@
  const BASEURL = "https://strangers-things.herokuapp.com/api/2207-FT-ET-WEB-PT/"
 
+ const makeHeaders = (token) => {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  return headers;
+};
 
  export const fetchPosts = async (token) => {
      try {
@@ -39,6 +50,29 @@ export const registerUser = async (username, password) => {
     } catch (error) {
         console.error("error registering user", error)
     }
+}
+
+export const loginUser = async (username, password) => {
+  try {
+      const response = await fetch (`${BASEURL}/users/login`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: {
+          username,
+          password
+        }
+      })
+    });
+    console.log("response for registering user", response);
+    const data = await response.json();
+    console.log("data", data)
+    return data;
+  } catch (error) {
+      console.error("error registering user", error)
+  }
 }
 
 export const fetchUsername = async (token) => {
@@ -88,7 +122,7 @@ export const createPost = async (token, title, description, price) => {
 
     export const deletePost = async (token, postId) => {
       try {
-        await fetch(`${BASEURL}/Post/${postId}`, {
+        await fetch(`${BASEURL}/posts/${postId}`, {
           method: "DELETE",
           headers: {
             'Content-Type': 'application/json',
@@ -101,3 +135,40 @@ export const createPost = async (token, title, description, price) => {
         }
       };
     
+
+      export const addComment = async (token, postId, comment) => {
+        try {
+          const { success, error, data } = await callAPI(`/Post/${postId}/comments`, {
+            token: token,
+            method: "POST",
+            body: {
+              comment: {
+                content: comment
+              },
+            },
+          });
+      
+          if (success) {
+            return {
+              success: success,
+              error: null,
+              comment: data.comment,
+            };
+          } else {
+            return {
+              success: success,
+              error: error.message,
+              comment: null,
+            };
+          }
+        } catch (error) {
+          console.error(`POST /Post/${postId}/comments failed:`, error);
+      
+          return {
+            success: false,
+            error: "Failed to create comment for the post",
+            comment: null,
+          };
+        }
+      };
+      
